@@ -65,6 +65,21 @@ const loadModal = async (id) => {
 
 const displayModalData = (data) => {
     console.log(data);
+    const modalContainer = document.getElementById('modal-container');
+    const modalDiv = document.createElement('div');
+    modalDiv.classList.add('modal-content');
+    modalContainer.innerHTML = '';
+    modalDiv.innerHTML = `
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center card-body">
+            <img src="${data.image_link[0]}" class="card-img-top bg-cover  rounded mt-3" alt="...">
+            <p>${data.input_output_examples[0].input}</p>
+            <p>${data.input_output_examples[0].output}</p>
+        </div>
+    `;
+    modalContainer.appendChild(modalDiv);
 }
 const loadFullData = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
