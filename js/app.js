@@ -16,9 +16,9 @@ const displayData = (data) => {
     const cardContainer = document.getElementById('card-container');
     cardContainer.innerHTML = '';
     data.forEach(singleTool => {
-        console.log(singleTool);
+        //console.log(singleTool.id);
 
-        const {image,name,features,published_in} = singleTool;
+        const {image,name,features,published_in, id} = singleTool;
         
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card', 'my-3');
@@ -37,10 +37,10 @@ const displayData = (data) => {
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <p class="card-text">${name}</p>
-                        <p class="card-text">${published_in}</p>
+                        <p class="card-text"><i class="fa-regular fa-calendar-days"></i> ${published_in}</p>
                     </div>
                     <div>
-                        <i class="fas fa-arrow-right"></i>
+                        <i onclick="loadModal('${id}')" class="fas fa-arrow-right" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                     </div>
                 </div>
             </div>
@@ -49,6 +49,23 @@ const displayData = (data) => {
     });
 }
 
+const loadModal = async (id) => {
+    console.log(id);
+
+    const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    try{
+        const res = await fetch(URL);
+        const data = await res.json();
+        displayModalData(data.data);
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
+const displayModalData = (data) => {
+    console.log(data);
+}
 const loadFullData = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     try{
