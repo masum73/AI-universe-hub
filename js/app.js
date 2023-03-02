@@ -13,15 +13,17 @@ const loadData = async () => {
 
 const displayData = (data) => {
     //console.log(data);
-
+    const cardContainer = document.getElementById('card-container');
+    cardContainer.innerHTML = '';
     data.forEach(singleTool => {
         console.log(singleTool);
 
         const {image,name,features,published_in} = singleTool;
-        const cardContainer = document.getElementById('card-container');
+        
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card', 'my-3');
         cardDiv.style.width = '24rem';
+        
 
         cardDiv.innerHTML = `
             <img src="${image}" class="card-img-top bg-cover mt-3" alt="...">
@@ -45,4 +47,15 @@ const displayData = (data) => {
         `
         cardContainer.appendChild(cardDiv);
     });
+}
+
+const loadFullData = async () => {
+    const URL = `https://openapi.programming-hero.com/api/ai/tools`;
+    try{
+        const res = await fetch(URL);
+        const data = await res.json();
+        displayData(data.data.tools);
+    }catch(error){
+        console.log(error);
+    }
 }
