@@ -66,7 +66,7 @@ const loadModal = async (id) => {
 }
 
 const displayModalData = (data) => {
-    console.log(data);
+    console.log(data.integrations);
     const modalContainer = document.getElementById('modal-container');
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal-content');
@@ -75,10 +75,45 @@ const displayModalData = (data) => {
         <div class="modal-header">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body text-center card-body">
-            <img src="${data.image_link[0]}" class="card-img-top bg-cover  rounded mt-3" alt="...">
-            <p>${data.input_output_examples[0].input}</p>
-            <p>${data.input_output_examples[0].output}</p>
+        <div class="modal-body card-body d-flex my-3 gap-3 rounded">
+            <div class="bg-danger-subtle border border-1 border-dark-subtle p-3 rounded">
+                <p class"text-center">${data.description}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="bg-light-subtle p-2 rounded">
+                        <p class="p-0 m-0">${data.pricing[0].price}</p>
+                        <p class="p-0 m-0">${data.pricing[0].plan}</p>
+                    </div>
+                    <div class="bg-light-subtle p-2 rounded">
+                        <p class="p-0 m-0">${data.pricing[1].price}</p>
+                        <p class="p-0 m-0">${data.pricing[1].plan}</p>
+                    </div>
+                    <div class="bg-light-subtle p-2 rounded">
+                        <p class="p-0 m-0">${data.pricing[2].price}</p>
+                        <p class="p-0 m-0">${data.pricing[2].plan}</p>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-left mt-3">
+                        <p class="p-0 m-0">Features</p>
+                        <p class="p-0 m-0">. ${data.features['1'].feature_name}</p>
+                        <p class="p-0 m-0">. ${data.features['2'].feature_name}</p>
+                        <p class="p-0 m-0">. ${data.features['3'].feature_name}</p>      
+                    </div>
+                    <div class="text-left mt-3">
+                        <p class="p-0 m-0">Integrations</p>
+                        <p class="p-0 m-0">. ${data.integrations[0]}</p>
+                        <p class="p-0 m-0">. ${data.integrations[1]}</p>
+                        <p class="p-0 m-0">. ${data.integrations[2]}</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="border text-center border-1 border-dark-subtle p-3 rounded">
+                <img src="${data.image_link[0]}" class="card-img-top bg-cover rounded" alt="...">
+                <p>${data.input_output_examples[0].input}</p>
+                <p>${data.input_output_examples[0].output}</p>
+            </div>
         </div>
     `;
     modalContainer.appendChild(modalDiv);
