@@ -2,6 +2,7 @@ console.log('JS loaded');
 
 const loadData = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
+    toggleSpinner(true);
     try{
         const res = await fetch(URL);
         const data = await res.json();
@@ -47,6 +48,7 @@ const displayData = (data) => {
         `
         cardContainer.appendChild(cardDiv);
     });
+    toggleSpinner(false)
 }
 
 const loadModal = async (id) => {
@@ -83,11 +85,23 @@ const displayModalData = (data) => {
 }
 const loadFullData = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
+    //toggleSpinner(true);
     try{
         const res = await fetch(URL);
         const data = await res.json();
         displayData(data.data.tools);
     }catch(error){
         console.log(error);
+    }
+}
+
+//loader 
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if(isLoading){
+        loaderSection.classList.remove('d-none')
+    }
+    else{
+        loaderSection.classList.add('d-none');
     }
 }
