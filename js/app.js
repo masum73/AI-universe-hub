@@ -92,22 +92,22 @@ const displayModalData = (data) => {
         <div class="modal-body card-body d-flex my-3 gap-3 rounded">
             <div class="bg-danger-subtle border border-1 border-dark-subtle p-3 rounded w-50">
                 <p class"text-center">${data.description}</p>
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column flex-sm-row  justify-content-between align-items-center">
                     <div class="bg-light-subtle p-2 rounded">
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].price !== '0' && data.pricing[0].price !== 'No cost'  ? data.pricing[0].price : 'Free of cost'}</p>
-                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].plan}</p>
+                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].plan ? data.pricing[0].plan : ''}</p>
                     </div>
                     <div class="bg-light-subtle p-2 rounded">
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[1].price !== '0' && data.pricing[1].price !== 'No cost'  ? data.pricing[1].price : 'Free of cost'}</p>
-                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[1].plan}</p>
+                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[1].plan ? data.pricing[1].plan : ''}</p>
                     </div>
                     <div class="bg-light-subtle p-2 rounded">
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[2].price !== '0' && data.pricing[2].price !== 'No cost' && data.pricing[2].price !== 'Contact us for pricing' && data.pricing[2].price !== 'Contact us '? data.pricing[2].price : 'Free of cost'}</p>
-                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[2].plan}</p>
+                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[2].plan ? data.pricing[2].plan : ''}</p>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between flex-column flex-sm-row">
                     <div class="text-left mt-3">
                         <p class="p-0 m-0">Features</p>
                         ${features.length === 0 ? 'No data found' : features}
@@ -115,7 +115,7 @@ const displayModalData = (data) => {
                     </div>
                     <div class="text-left mt-3">
                         <p class="p-0 m-0">Integrations</p>               
-                        ${data.integrations !== null && data.integrations.length === 0 ? 'No data found' : integrations}
+                        ${data.integrations === null || data.integrations.length === 0 ? 'No data found' : integrations}
                     </div>
                 </div>
 
@@ -123,8 +123,8 @@ const displayModalData = (data) => {
             <div class="border text-center border-1 border-dark-subtle p-3 rounded position-relative w-50">
                 <p class="${score ? '' : 'd-none'} bg-danger p-0 m-3 rounded position-absolute top-20 end-0" style="width: 20%;">${score} % accuracy</p>
                 <img src="${data.image_link[0]}" class="card-img-top bg-cover rounded" alt="...">
-                <p>${data.input_output_examples !== null && data.input_output_examples[0].input}</p>
-                <p>${data.input_output_examples !== null && data.input_output_examples[0].output}</p>
+                <p>${data.input_output_examples !== null && data.input_output_examples[0].input ? data.input_output_examples[0].input : 'No not yet'}</p>
+                <p>${data.input_output_examples !== null && data.input_output_examples[0].output ? data.input_output_examples[0].output : 'Take a Break'}</p>
             </div>
         </div>
     `;
