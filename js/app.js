@@ -66,7 +66,7 @@ const loadModal = async (id) => {
 }
 
 const displayModalData = (data) => {
-    console.log(data.integrations);
+    console.log(data.accuracy);
     const modalContainer = document.getElementById('modal-container');
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal-content');
@@ -109,7 +109,8 @@ const displayModalData = (data) => {
                 </div>
 
             </div>
-            <div class="border text-center border-1 border-dark-subtle p-3 rounded">
+            <div class="border text-center border-1 border-dark-subtle p-3 rounded position-relative">
+                <p class="bg-danger p-0 m-3 rounded position-absolute top-20 end-0" style="width: 20%;">${accuracyPercentage(data.accuracy.score)}</p>
                 <img src="${data.image_link[0]}" class="card-img-top bg-cover rounded" alt="...">
                 <p>${data.input_output_examples[0].input}</p>
                 <p>${data.input_output_examples[0].output}</p>
@@ -117,6 +118,11 @@ const displayModalData = (data) => {
         </div>
     `;
     modalContainer.appendChild(modalDiv);
+}
+
+const accuracyPercentage = (score) => {
+    const scorePercentage = score * 100;
+    return scorePercentage + '% accuracy';
 }
 const loadFullData = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
