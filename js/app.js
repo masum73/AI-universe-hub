@@ -129,8 +129,8 @@ const displayModalData = (data) => {
             <div class="border text-center border-1 border-dark-subtle p-3 rounded position-relative w-50">
                 <p class="${score ? '' : 'd-none'} bg-danger p-1 m-3 rounded position-relative position-sm-absolute top-20 end-0">${score} % accuracy</p>
                 <img src="${data.image_link[0]}" class="card-img-top bg-cover rounded" alt="...">
-                <p class="fw-bold fs-3">${data.input_output_examples !== null && data.input_output_examples[0].input ? data.input_output_examples[0].input : 'No not yet'}</p>
-                <p style="overflow-wrap: break-word;" >${data.input_output_examples !== null && data.input_output_examples[0].output ? data.input_output_examples[0].output : 'Take a Break'}</p>
+                <p class="fw-bold fs-3">${data.input_output_examples !== null && data.input_output_examples[0].input ? data.input_output_examples[0].input : 'Can you give any example?'}</p>
+                <p style="overflow-wrap: break-word;" >${data.input_output_examples !== null && data.input_output_examples[0].output ? data.input_output_examples[0].output : 'No! Not Yet! Take a break!!!'}</p>
             </div>
         </div>
     `;
