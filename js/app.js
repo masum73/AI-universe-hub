@@ -37,14 +37,13 @@ const displayData = (data) => {
         cardDiv.innerHTML = `
             <img src="${image}" class=" mt-3" style=" height: 200px; width: 100%" alt="...">
             <div class="card-body">
-                <h5 class="card-title">${name}</h5>
-                <p class="card-text">Features</p>
+                <p class="card-text fw-bold fs-4">Features</p>
                 ${displayFeaturesList}
                 
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <p class="card-text">${name}</p>
+                        <p class="card-text fw-bold fs-4">${name}</p>
                         <p class="card-text"><i class="fa-regular fa-calendar-days"></i> ${published_in}</p>
                     </div>
                     <div>
@@ -95,17 +94,17 @@ const displayModalData = (data) => {
         </div>
         <div class="modal-body card-body d-flex my-3 gap-3 rounded">
             <div class="bg-danger-subtle border border-1 border-dark-subtle p-3 rounded w-50">
-                <p class"text-center">${data.description}</p>
+                <p id="description" class"text-center fw-bold fs-3">${data.description}</p>
                 <div class="d-flex flex-column gap-2 flex-sm-row  justify-content-between align-items-center">
-                    <div class="bg-light-subtle p-2 rounded">
-                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].price !== '0' && data.pricing[0].price !== 'No cost' ? data.pricing[0].price : 'Free of cost'}</p>
-                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].plan ? data.pricing[0].plan : ''}</p>
+                    <div class="bg-light-subtle p-2 rounded text-success fs-5 fw-bold">
+                        <p class="p-0 m-0 ">${data.pricing !== null && data.pricing[0].price !== '0' && data.pricing[0].price !== 'No cost' ? data.pricing[0].price : 'Free of cost'}</p>
+                        <p class="p-0 m-0 ">${data.pricing !== null && data.pricing[0].plan ? data.pricing[0].plan : ''}</p>
                     </div>
-                    <div class="bg-light-subtle p-2 rounded">
+                    <div class="bg-light-subtle p-2 rounded text-warning fs-5 fw-bold">
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[1].price !== '0' && data.pricing[1].price !== 'No cost' ? data.pricing[1].price : 'Free of cost'}</p>
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[1].plan ? data.pricing[1].plan : ''}</p>
                     </div>
-                    <div class="bg-light-subtle p-2 rounded">
+                    <div class="bg-light-subtle p-2 rounded text-danger fs-5 fw-bold">
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[2].price !== '0' && data.pricing[2].price !== 'No cost' && data.pricing[2].price !== 'Contact us for pricing' && data.pricing[2].price !== 'Contact us ' ? data.pricing[2].price : 'Free of cost'}</p>
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[2].plan ? data.pricing[2].plan : ''}</p>
                     </div>
@@ -113,12 +112,12 @@ const displayModalData = (data) => {
 
                 <div class="d-flex justify-content-between flex-column flex-sm-row">
                     <div class="text-left mt-3">
-                        <p class="p-0 m-0">Features</p>
+                        <p class="p-0 m-0 fw-bold fs-3">Features</p>
                         ${features.length === 0 ? 'No data found' : features}
                         
                     </div>
                     <div class="text-left mt-3">
-                        <p class="p-0 m-0">Integrations</p>               
+                        <p class="p-0 m-0 fw-bold fs-3">Integrations</p>               
                         ${data.integrations === null || data.integrations.length === 0 ? 'No data found' : integrations}
                     </div>
                 </div>
@@ -127,7 +126,7 @@ const displayModalData = (data) => {
             <div class="border text-center border-1 border-dark-subtle p-3 rounded position-relative w-50">
                 <p class="${score ? '' : 'd-none'} bg-danger p-1 m-3 rounded position-relative position-sm-absolute top-20 end-0">${score} % accuracy</p>
                 <img src="${data.image_link[0]}" class="card-img-top bg-cover rounded" alt="...">
-                <p>${data.input_output_examples !== null && data.input_output_examples[0].input ? data.input_output_examples[0].input : 'No not yet'}</p>
+                <p class="fw-bold fs-3">${data.input_output_examples !== null && data.input_output_examples[0].input ? data.input_output_examples[0].input : 'No not yet'}</p>
                 <p style="overflow-wrap: break-word;" >${data.input_output_examples !== null && data.input_output_examples[0].output ? data.input_output_examples[0].output : 'Take a Break'}</p>
             </div>
         </div>
@@ -207,3 +206,5 @@ const loadByDate = async () => {
         console.log(error);
     }
 }
+
+
