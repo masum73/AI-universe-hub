@@ -3,11 +3,16 @@ console.log('JS loaded');
 const loadData = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     toggleSpinner(true);
-    try{
+    try {
         const res = await fetch(URL);
         const data = await res.json();
-        displayData(data.data.tools.slice(0,6));
-    }catch(error){
+        const fetchData = data.data.tools;
+        if (hasSeeMoreClicked === true){
+            displayData(fetchData);
+        }else{
+            displayData(fetchData.slice(0,6));
+        }
+    } catch (error) {
         console.log(error);
     }
 }
@@ -20,14 +25,14 @@ const displayData = (data) => {
     data.forEach(singleTool => {
         //console.log(singleTool.id);
 
-        const {image,name,features,published_in, id} = singleTool;
-        
+        const { image, name, features, published_in, id } = singleTool;
+
         const displayFeaturesList = displayFeatures(features);
 
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card', 'my-3');
         cardDiv.style.width = '24rem';
-        
+
 
         cardDiv.innerHTML = `
             <img src="${image}" class=" mt-3" style=" height: 200px; width: 100%" alt="...">
@@ -63,13 +68,12 @@ const displayFeatures = (features) => {
 }
 const loadModal = async (id) => {
     console.log(id);
-
     const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
-    try{
+    try {
         const res = await fetch(URL);
         const data = await res.json();
         displayModalData(data.data);
-    }catch(error){
+    } catch (error) {
         console.log(error);
     }
 
@@ -94,15 +98,15 @@ const displayModalData = (data) => {
                 <p class"text-center">${data.description}</p>
                 <div class="d-flex flex-column flex-sm-row  justify-content-between align-items-center">
                     <div class="bg-light-subtle p-2 rounded">
-                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].price !== '0' && data.pricing[0].price !== 'No cost'  ? data.pricing[0].price : 'Free of cost'}</p>
+                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].price !== '0' && data.pricing[0].price !== 'No cost' ? data.pricing[0].price : 'Free of cost'}</p>
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].plan ? data.pricing[0].plan : ''}</p>
                     </div>
                     <div class="bg-light-subtle p-2 rounded">
-                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[1].price !== '0' && data.pricing[1].price !== 'No cost'  ? data.pricing[1].price : 'Free of cost'}</p>
+                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[1].price !== '0' && data.pricing[1].price !== 'No cost' ? data.pricing[1].price : 'Free of cost'}</p>
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[1].plan ? data.pricing[1].plan : ''}</p>
                     </div>
                     <div class="bg-light-subtle p-2 rounded">
-                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[2].price !== '0' && data.pricing[2].price !== 'No cost' && data.pricing[2].price !== 'Contact us for pricing' && data.pricing[2].price !== 'Contact us '? data.pricing[2].price : 'Free of cost'}</p>
+                        <p class="p-0 m-0">${data.pricing !== null && data.pricing[2].price !== '0' && data.pricing[2].price !== 'No cost' && data.pricing[2].price !== 'Contact us for pricing' && data.pricing[2].price !== 'Contact us ' ? data.pricing[2].price : 'Free of cost'}</p>
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[2].plan ? data.pricing[2].plan : ''}</p>
                     </div>
                 </div>
@@ -124,7 +128,7 @@ const displayModalData = (data) => {
                 <p class="${score ? '' : 'd-none'} bg-danger p-0 m-3 rounded position-absolute top-20 end-0" style="width: 20%;">${score} % accuracy</p>
                 <img src="${data.image_link[0]}" class="card-img-top bg-cover rounded" alt="...">
                 <p>${data.input_output_examples !== null && data.input_output_examples[0].input ? data.input_output_examples[0].input : 'No not yet'}</p>
-                <p>${data.input_output_examples !== null && data.input_output_examples[0].output ? data.input_output_examples[0].output : 'Take a Break'}</p>
+                <p style="overflow-wrap: break-word;" >${data.input_output_examples !== null && data.input_output_examples[0].output ? data.input_output_examples[0].output : 'Take a Break'}</p>
             </div>
         </div>
     `;
@@ -156,27 +160,49 @@ const accuracyPercentage = (score) => {
     console.log(score);
     const scorePercentage = score * 100;
     return scorePercentage;
-} 
-const loadFullData = async () => {
-    const URL = `https://openapi.programming-hero.com/api/ai/tools`;
-    //toggleSpinner(true);
-    try{
-        const res = await fetch(URL);
-        const data = await res.json();
-        console.log(data);
-        displayData(data.data.tools);
-    }catch(error){
-        console.log(error);
-    }
+}
+const loadFullData = () => {
+    hasSeeMoreClicked = true;
+    loadData();
 }
 
 //loader 
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById('loader');
-    if(isLoading){
+    if (isLoading) {
         loaderSection.classList.remove('d-none')
     }
-    else{
+    else {
         loaderSection.classList.add('d-none');
+    }
+}
+
+let hasSeeMoreClicked = false;
+
+const loadByDate = async () => {
+    const URL = `https://openapi.programming-hero.com/api/ai/tools`;
+    toggleSpinner(true);
+    try {
+        const res = await fetch(URL);
+        const data = await res.json();
+        const fetchData = data.data.tools;
+        fetchData.sort((a, b) => {
+            const dateA = a.published_in.split('/'); 
+            const dateB = b.published_in.split('/');
+            //console.log({dateA, dateB});
+            //console.log(dateB);
+            const aDate = new Date(dateA[2], dateA[0], dateA[1]); 
+            const bDate = new Date(dateB[2], dateB[0], dateB[1]);
+            //console.log({aDate, bDate}); 
+            return aDate - bDate;
+        })
+
+        if (hasSeeMoreClicked === true){
+            displayData(fetchData);
+        }else{
+            displayData(fetchData.slice(0,6));
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
