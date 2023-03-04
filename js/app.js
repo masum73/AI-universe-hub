@@ -1,5 +1,6 @@
-console.log('JS loaded');
-
+// global variable to track see more button activity 
+let hasSeeMoreClicked = false;
+// fetching all data from api
 const loadData = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     toggleSpinner(true);
@@ -16,9 +17,9 @@ const loadData = async () => {
         console.log(error);
     }
 }
-
+// displaying data function
 const displayData = (data) => {
-    console.log(data);
+    //console.log(data);
     const cardContainer = document.getElementById('card-container');
     cardContainer.innerHTML = '';
 
@@ -56,6 +57,7 @@ const displayData = (data) => {
     });
     toggleSpinner(false)
 }
+// displaying features 
 const displayFeatures = (features) => {
     let output = '';
     let serial = 1;
@@ -65,8 +67,9 @@ const displayFeatures = (features) => {
     })
     return output;
 }
+// fetching modal data from api through id
 const loadModal = async (id) => {
-    console.log(id);
+    //console.log(id);
     const URL = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
     try {
         const res = await fetch(URL);
@@ -77,9 +80,9 @@ const loadModal = async (id) => {
     }
 
 }
-
+// displaying modal data in modal
 const displayModalData = (data) => {
-    console.log(data);
+    //console.log(data);
     const modalContainer = document.getElementById('modal-container');
     const modalDiv = document.createElement('div');
     modalDiv.classList.add('modal-content');
@@ -133,6 +136,7 @@ const displayModalData = (data) => {
     `;
     modalContainer.appendChild(modalDiv);
 }
+// displaying modal features in modal
 const displayModalFeatures = (features) => {
     let output = '';
     const featuresObjectKeysArray = Object.keys(features);
@@ -147,6 +151,7 @@ const displayModalFeatures = (features) => {
     })
     return output;
 }
+// displaying modal integrations in modal 
 const displayIntegrations = (integrations) => {
     let output = '';
     integrations.forEach(singleElement => {
@@ -155,17 +160,18 @@ const displayIntegrations = (integrations) => {
     return output;
 
 }
+// calculating accuracy in percentage 
 const accuracyPercentage = (score) => {
-    console.log(score);
+    //console.log(score);
     const scorePercentage = score * 100;
     return scorePercentage;
 }
+// loading full data when see more button is clicked
 const loadFullData = () => {
     hasSeeMoreClicked = true;
     document.getElementById('btn-seeMore').classList.add('d-none');
     loadData();
 }
-
 //loader 
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById('loader');
@@ -176,9 +182,7 @@ const toggleSpinner = isLoading => {
         loaderSection.classList.add('d-none');
     }
 }
-
-let hasSeeMoreClicked = false;
-
+// sort by date function
 const loadByDate = async () => {
     const URL = `https://openapi.programming-hero.com/api/ai/tools`;
     toggleSpinner(true);
