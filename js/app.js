@@ -163,6 +163,7 @@ const accuracyPercentage = (score) => {
 }
 const loadFullData = () => {
     hasSeeMoreClicked = true;
+    document.getElementById('btn-seeMore').classList.add('d-none');
     loadData();
 }
 
