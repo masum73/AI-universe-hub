@@ -96,7 +96,7 @@ const displayModalData = (data) => {
         <div class="modal-body card-body d-flex my-3 gap-3 rounded">
             <div class="bg-danger-subtle border border-1 border-dark-subtle p-3 rounded w-50">
                 <p class"text-center">${data.description}</p>
-                <div class="d-flex flex-column flex-sm-row  justify-content-between align-items-center">
+                <div class="d-flex flex-column gap-2 flex-sm-row  justify-content-between align-items-center">
                     <div class="bg-light-subtle p-2 rounded">
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].price !== '0' && data.pricing[0].price !== 'No cost' ? data.pricing[0].price : 'Free of cost'}</p>
                         <p class="p-0 m-0">${data.pricing !== null && data.pricing[0].plan ? data.pricing[0].plan : ''}</p>
@@ -125,7 +125,7 @@ const displayModalData = (data) => {
 
             </div>
             <div class="border text-center border-1 border-dark-subtle p-3 rounded position-relative w-50">
-                <p class="${score ? '' : 'd-none'} bg-danger p-0 m-3 rounded position-absolute top-20 end-0" style="width: 20%;">${score} % accuracy</p>
+                <p class="${score ? '' : 'd-none'} bg-danger p-1 m-3 rounded position-relative position-sm-absolute top-20 end-0">${score} % accuracy</p>
                 <img src="${data.image_link[0]}" class="card-img-top bg-cover rounded" alt="...">
                 <p>${data.input_output_examples !== null && data.input_output_examples[0].input ? data.input_output_examples[0].input : 'No not yet'}</p>
                 <p style="overflow-wrap: break-word;" >${data.input_output_examples !== null && data.input_output_examples[0].output ? data.input_output_examples[0].output : 'Take a Break'}</p>

@@ -1,0 +1,5 @@
+@media screen and (min-width: 576px) {
+    .position-sm-absolute {
+        position: absolute !important;
+    }
+}
